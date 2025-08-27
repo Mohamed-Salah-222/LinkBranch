@@ -1,0 +1,68 @@
+# Node modules
+node_modules/
+jspm_packages/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Dependency directories
+bower_components/
+.venv/
+.terraform/
+
+# Build output
+dist/
+build/
+out/
+coverage/
+lib-cov/
+*.tsbuildinfo
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# npm / yarn / pnpm lockfiles
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Front-end specific
+/public/uploads/
+*.local
+.cache/
+.next/
+.nuxt/
+.vite/
+
+# Misc
+*.swp
+*.bak
+*.tmp
+*.temp
+
+# Docker
+docker-compose.override.yml
+*.env.override
