@@ -1,10 +1,13 @@
 import "dotenv/config";
 import express from "express";
+import type { Request, Response, NextFunction } from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 
 const app: express.Application = express();
 const port = process.env.PORT || 3000;
+
+import authRoutes from "./routes/authRoutes.js";
 
 app.use(cors());
 app.use(express.json());
@@ -15,6 +18,13 @@ if (!dbURI) {
   console.error("DATABASE URI IS NOT DEFINED IN .env FILE");
   process.exit(1);
 }
+
+app.use("/api/auth", authRoutes);
+
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  console.error(err.stack);
+  res.status(500).json({ message: "Something went wrong on the server!" });
+});
 
 mongoose
   .connect(dbURI)

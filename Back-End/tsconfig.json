@@ -9,6 +9,7 @@
     // See also https://aka.ms/tsconfig/module
     "module": "nodenext",
     "target": "es2022",
+    "typeRoots": ["./node_modules/@types", "./src/types"],
     "types": [],
     // For nodejs:
     // "lib": ["esnext"],
@@ -40,5 +41,10 @@
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true
-  }
+  },
+  "include": [
+    "src/**/*", // Include all files in the src folder
+    "src/types/**/*" // Explicitly include all files in the types folder
+  ],
+  "references": [{ "path": "../packages/types" }]
 }
