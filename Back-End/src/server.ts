@@ -8,6 +8,8 @@ const app: express.Application = express();
 const port = process.env.PORT || 3000;
 
 import authRoutes from "./routes/authRoutes.js";
+import linkRoutes from "./routes/linkRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 
 app.use(cors());
 app.use(express.json());
@@ -20,6 +22,8 @@ if (!dbURI) {
 }
 
 app.use("/api/auth", authRoutes);
+app.use("/api/links", linkRoutes);
+app.use("/api/users", userRoutes);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
