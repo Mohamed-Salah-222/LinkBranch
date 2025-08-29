@@ -72,14 +72,13 @@ export const loginUser: ExpressHandler = async (req, res, next) => {
     const payload = { id: user._id };
     const token = jwt.sign(payload, process.env.JWT_SECRET as string, { expiresIn: "1d" });
 
+    const userObject = user.toObject();
+    delete userObject.password;
+
     res.status(200).json({
       message: "Logged in successfully!",
       token,
-      user: {
-        id: user._id,
-        username: user.username,
-        email: user.email,
-      },
+      user: userObject,
     });
   } catch (error) {
     next(error);
