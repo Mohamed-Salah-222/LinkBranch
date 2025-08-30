@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
 const HomePage = () => {
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
@@ -10,6 +10,26 @@ const HomePage = () => {
 
   const [navbarTransform, setNavbarTransform] = useState("translateY(0)");
   const [navbarOpacity, setNavbarOpacity] = useState(1);
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isVisible, setIsVisible] = useState(true);
+
+  const images = ["001.jpg", "/002.jpg", "/003.jpg", "/004.jpg"];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      // Start fade out
+      setIsVisible(false);
+
+      // After fade out completes, change image and fade in
+      setTimeout(() => {
+        setCurrentImageIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
+        setIsVisible(true);
+      }, 300); // 300ms fade out duration
+    }, 3000); // Change image every 3 seconds
+
+    return () => clearInterval(interval);
+  }, [images.length]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -75,8 +95,8 @@ const HomePage = () => {
 
   const faqData = [
     {
-      question: "What is LinkBranch?",
-      answer: "LinkBranch is a simple link-in-bio tool that helps you share everything you are in one simple link.",
+      question: "Why do I need a link in bio tool?",
+      answer: "Right now, every time you've got something new to share, you have to go to every single one of your channels to change the link in each of your bios. It's time-consuming and complicated – making it so much harder to keep everything up to date. ",
     },
     {
       question: "How do I create my linkBranch?",
@@ -169,63 +189,82 @@ const HomePage = () => {
 
       {/* Features Section */}
       <section className="h-[90vh] flex items-center" style={{ backgroundColor: "#E9C0E9" }}>
-        <div className="max-w-6xl mx-auto flex items-center">
-          <div className="flex-1">
-            <div className="bg-black h-80 w-full rounded-lg flex items-center justify-center">
-              <span className="text-white">Video/GIF Placeholder</span>
+        <div className="ml-24 mr-24 w-full flex items-center justify-around">
+          <div className="flex justify-start">
+            <div className="relative h-[700px] w-96 rounded-lg overflow-hidden">
+              <img src={images[currentImageIndex]} alt="LinkBranch Feature" className={`absolute inset-0 w-full h-full object-cover transition-all duration-500 ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-75"}`} />
             </div>
           </div>
-          <div className="flex-1 pl-12">
-            <h2 className="text-3xl font-bold text-black mb-6">Create and customize your linkBranch in minutes</h2>
-            <p className="text-black text-lg leading-relaxed">Connect your TikTok, Instagram, Twitter website, store, videos, music, podcast, events and more. It all comes together in a link in bio landing page designed to convert.</p>
+          <div className="flex justify-end max-w-4xl">
+            <div>
+              <h2 className="text-6xl font-black mb-6" style={{ color: "#502274" }}>
+                Create and customize
+                <br />
+                your linkBranch in minutes
+              </h2>
+              <p className="text-black text-lg leading-relaxed mb-8">Connect your TikTok, Instagram, Twitter website, store, videos, music, podcast, events and more. It all comes together in a link in bio landing page designed to convert.</p>
+              <button className="px-8 py-4 rounded-full font-semibold text-white hover:opacity-90 transition-opacity" style={{ backgroundColor: "#502274" }}>
+                Get Started for Free
+              </button>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Analytics Section */}
-      <section className="bg-yellow-200 px-6 py-20">
-        <div className="max-w-6xl mx-auto">
-          <div className="mb-12">
-            <h2 className="text-3xl font-bold text-black mb-4">Analyse your audience and keep your followers engaged</h2>
-            <p className="text-black text-lg max-w-2xl">Track your engagement over time, monitor revenue and learn what's converting your audience. Make informed updates on the fly to keep them coming back.</p>
-            <button className="bg-gray-400 text-black px-8 py-3 rounded mt-6 hover:bg-gray-500">Get Started</button>
+      <section className="h-[100vh] flex items-center px-6 py-20" style={{ backgroundColor: "#E8EFD6" }}>
+        <div className="ml-24 mr-24 w-full flex items-center justify-around">
+          <div className="flex justify-start">
+            <div className="max-w-3xl h-[600px] flex items-center justify-center">
+              <img src="/Welovroi_-_Tao_De_La_Torre-removebg-preview.png" alt="Analytics Dashboard" className="w-full h-full object-contain" />
+            </div>
           </div>
 
-          {/* Chart placeholders */}
-          <div className="grid grid-cols-2 gap-8">
-            <div className="bg-gray-300 h-48 rounded-lg flex items-center justify-center">
-              <span className="text-gray-600">Chart Placeholder 1</span>
-            </div>
-            <div className="bg-gray-300 h-48 rounded-lg flex items-center justify-center">
-              <span className="text-gray-600">Chart Placeholder 2</span>
-            </div>
-            <div className="bg-gray-300 h-48 rounded-lg flex items-center justify-center">
-              <span className="text-gray-600">Chart Placeholder 3</span>
-            </div>
-            <div className="bg-gray-300 h-48 rounded-lg flex items-center justify-center">
-              <span className="text-gray-600">Chart Placeholder 4</span>
+          {/* Right side - Content */}
+          <div className="flex justify-end max-w-4xl">
+            <div>
+              <h2 className="text-5xl font-black text-black mb-6">
+                Analyze your audience
+                <br />
+                and keep your
+                <br />
+                followers engaged
+              </h2>
+
+              <p className="text-black text-lg leading-relaxed mb-8 max-w-xl">Track your engagement over time, monitor revenue and learn what's converting your audience. Make informed updates on the fly to keep them coming back.</p>
+              <button className="px-8 py-4 rounded-full font-semibold text-black hover:opacity-90 transition-opacity" style={{ backgroundColor: "#E9C0E9" }}>
+                Get started for free
+              </button>
             </div>
           </div>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <section className="bg-red-800 px-6 py-20">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold text-white text-center mb-12">Got Questions</h2>
+      <section className="px-6 py-20 min-h-screen" style={{ backgroundColor: "#770A15" }}>
+        <div className="max-w-4xl mx-auto flex flex-col justify-center">
+          <h2 className="text-6xl font-bold  text-center mb-20" style={{ color: "#E9C0E9" }}>
+            Got Questions
+          </h2>
 
-          <div className="space-y-4">
+          <div className="space-y-8">
             {faqData.map((faq, index) => (
-              <div key={index} className="bg-gray-200 rounded-lg overflow-hidden">
-                <button onClick={() => toggleFAQ(index)} className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-300 transition-colors">
-                  <span className="font-semibold text-black">{faq.question}</span>
-                  {openFAQ === index ? <ChevronUp className="text-black" /> : <ChevronDown className="text-black" />}
-                </button>
-                {openFAQ === index && (
-                  <div className="px-6 pb-4">
-                    <p className="text-gray-700">{faq.answer}</p>
+              <div key={index} className="rounded-3xl overflow-hidden" style={{ backgroundColor: "#51040E" }}>
+                <button onClick={() => toggleFAQ(index)} className="w-full px-12 py-10 text-left flex justify-between items-center hover:opacity-90 transition-all duration-300 ease-in-out">
+                  <span className="font-bold text-3xl" style={{ color: "#E9C0E9" }}>
+                    {faq.question}
+                  </span>
+                  <div className="transform transition-transform duration-300 ease-in-out" style={{ transform: openFAQ === index ? "rotate(180deg)" : "rotate(0deg)" }}>
+                    <ChevronDown className="text-3xl" style={{ color: "#E9C0E9" }} />
                   </div>
-                )}
+                </button>
+                <div className={`overflow-hidden transition-all duration-500 ease-in-out ${openFAQ === index ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}>
+                  <div className="px-12 pb-10">
+                    <p className="text-2xl leading-relaxed" style={{ color: "#E9C0E9" }}>
+                      {faq.answer}
+                    </p>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -233,141 +272,199 @@ const HomePage = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-purple-600 px-6 py-20">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-white mb-12">Jumpstart your corner of the internet today</h2>
+      <section className="relative overflow-hidden" style={{ backgroundColor: "#502274" }}>
+        {/* Animated background elements */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-10 left-10 w-32 h-32 rounded-full animate-pulse" style={{ backgroundColor: "#E9C0E9" }}></div>
+          <div className="absolute top-40 right-20 w-24 h-24 rounded-full animate-bounce delay-300" style={{ backgroundColor: "#E9C0E9" }}></div>
+          <div className="absolute bottom-20 left-1/4 w-40 h-40 rounded-full animate-pulse delay-700" style={{ backgroundColor: "#E9C0E9" }}></div>
+          <div className="absolute bottom-40 right-1/3 w-16 h-16 rounded-full animate-bounce delay-500" style={{ backgroundColor: "#E9C0E9" }}></div>
+        </div>
 
-          {/* Placeholder grid */}
-          <div className="grid grid-cols-4 gap-4 mb-8">
-            {[...Array(12)].map((_, index) => (
-              <div key={index} className="bg-gray-200 h-32 rounded-lg"></div>
-            ))}
-          </div>
-
-          {/* Bottom section with login/signup and social links */}
-          <div className="flex justify-between items-center">
-            <div className="flex gap-4">
-              <div className="bg-yellow-500 px-6 py-2 rounded text-black font-semibold">Login</div>
-              <div className="bg-yellow-500 px-6 py-2 rounded text-black font-semibold">Sign Up</div>
+        <div className="relative px-6 py-24">
+          <div className="max-w-6xl mx-auto text-center">
+            {/* Main CTA */}
+            <div className="mb-16">
+              <h2 className="text-6xl md:text-7xl font-bold mb-8 bg-gradient-to-r from-white via-purple-200 to-white bg-clip-text text-transparent leading-tight">Jumpstart Your Digital</h2>
+              <h2 className="text-6xl md:text-7xl font-bold mb-8 bg-gradient-to-r from-purple-200 via-white to-purple-200 bg-clip-text text-transparent leading-tight">Presence Today</h2>
+              <p className="text-2xl text-purple-100 mb-12 max-w-3xl mx-auto leading-relaxed">Join thousands of creators building their corner of the internet with powerful, beautiful tools</p>
             </div>
 
-            <div className="flex gap-4">
-              {[...Array(4)].map((_, index) => (
-                <div key={index} className="bg-black w-8 h-8 rounded"></div>
-              ))}
+            {/* Feature Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+              <div className="group p-6 rounded-2xl transform transition-all duration-300 hover:scale-105 cursor-pointer" style={{ backgroundColor: "#6A2C91" }}>
+                <div className="w-16 h-16 mx-auto mb-4 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-300" style={{ backgroundColor: "#E9C0E9", color: "#502274" }}>
+                  🚀
+                </div>
+                <h3 className="font-bold text-lg mb-2" style={{ color: "#E9C0E9" }}>
+                  Fast Setup
+                </h3>
+                <p className="text-sm opacity-80" style={{ color: "#E9C0E9" }}>
+                  Go live in minutes
+                </p>
+              </div>
+
+              <div className="group p-6 rounded-2xl transform transition-all duration-300 hover:scale-105 cursor-pointer" style={{ backgroundColor: "#6A2C91" }}>
+                <div className="w-16 h-16 mx-auto mb-4 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-300" style={{ backgroundColor: "#E9C0E9", color: "#502274" }}>
+                  🎨
+                </div>
+                <h3 className="font-bold text-lg mb-2" style={{ color: "#E9C0E9" }}>
+                  Beautiful Design
+                </h3>
+                <p className="text-sm opacity-80" style={{ color: "#E9C0E9" }}>
+                  Stunning templates
+                </p>
+              </div>
+
+              <div className="group p-6 rounded-2xl transform transition-all duration-300 hover:scale-105 cursor-pointer" style={{ backgroundColor: "#6A2C91" }}>
+                <div className="w-16 h-16 mx-auto mb-4 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-300" style={{ backgroundColor: "#E9C0E9", color: "#502274" }}>
+                  📊
+                </div>
+                <h3 className="font-bold text-lg mb-2" style={{ color: "#E9C0E9" }}>
+                  Analytics
+                </h3>
+                <p className="text-sm opacity-80" style={{ color: "#E9C0E9" }}>
+                  Track your growth
+                </p>
+              </div>
+
+              <div className="group p-6 rounded-2xl transform transition-all duration-300 hover:scale-105 cursor-pointer" style={{ backgroundColor: "#6A2C91" }}>
+                <div className="w-16 h-16 mx-auto mb-4 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-300" style={{ backgroundColor: "#E9C0E9", color: "#502274" }}>
+                  🔗
+                </div>
+                <h3 className="font-bold text-lg mb-2" style={{ color: "#E9C0E9" }}>
+                  Link Management
+                </h3>
+                <p className="text-sm opacity-80" style={{ color: "#E9C0E9" }}>
+                  Organize everything
+                </p>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
+              <button className="group relative px-12 py-4 rounded-2xl font-bold text-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl cursor-pointer" style={{ backgroundColor: "#E9C0E9", color: "#502274" }}>
+                <span className="relative z-10">Get Started Free</span>
+                <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-300" style={{ backgroundColor: "#ffffff" }}></div>
+              </button>
+            </div>
+
+            {/* Social Proof */}
+            <div className="text-center">
+              <p className="text-purple-200 mb-6">Join 50,000+ creators worldwide</p>
+              <div className="flex justify-center gap-8 items-center opacity-60">
+                <div className="text-purple-200">★★★★★ 4.9/5</div>
+                <div className="w-px h-6" style={{ backgroundColor: "#E9C0E9" }}></div>
+                <div className="text-purple-200">Trusted by professionals</div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white px-6 py-12">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-4 gap-8">
-            <div>
-              <h3 className="font-bold mb-4">Company</h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <a href="#" className="hover:text-gray-300">
-                    About Us
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-gray-300">
-                    Careers
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-gray-300">
-                    Press
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-gray-300">
-                    Blog
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-bold mb-4">Community</h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <a href="#" className="hover:text-gray-300">
-                    Discord
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-gray-300">
-                    Twitter
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-gray-300">
-                    Instagram
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-gray-300">
-                    YouTube
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-bold mb-4">Support</h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <a href="#" className="hover:text-gray-300">
-                    Help Center
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-gray-300">
-                    Contact Us
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-gray-300">
-                    Status
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-gray-300">
-                    Feedback
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-bold mb-4">Trust</h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <a href="#" className="hover:text-gray-300">
-                    Privacy Policy
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-gray-300">
-                    Terms of Service
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-gray-300">
-                    Security
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-gray-300">
-                    Cookie Policy
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
+      <footer style={{ backgroundColor: "#1A1A1A" }}>
+        <div className="px-6 py-16">
+          <div className="max-w-6xl mx-auto">
+            {/* Main Footer Content */}
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-12 mb-12">
+              {/* Brand Column */}
+              <div className="md:col-span-2">
+                <div className="mb-6">
+                  <h3 className="text-3xl font-bold mb-4" style={{ color: "#E9C0E9" }}>
+                    LinkBranch
+                  </h3>
+                  <p className="text-lg leading-relaxed opacity-80" style={{ color: "#E9C0E9" }}>
+                    Empowering creators to build their digital presence with beautiful, powerful tools that grow with your ambitions.
+                  </p>
+                </div>
 
-          <div className="border-t border-gray-700 mt-8 pt-8 text-center text-sm text-gray-400">
-            <p>&copy; 2025 LinkBranch. All rights reserved.</p>
+                {/* Social Links */}
+                <div className="flex gap-4">
+                  <div className="group w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 cursor-pointer" style={{ backgroundColor: "#502274" }}>
+                    <span className="text-xl group-hover:scale-110 transition-transform duration-300" style={{ color: "#E9C0E9" }}>
+                      𝕏
+                    </span>
+                  </div>
+                  <div className="group w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 cursor-pointer" style={{ backgroundColor: "#502274" }}>
+                    <span className="text-xl group-hover:scale-110 transition-transform duration-300" style={{ color: "#E9C0E9" }}>
+                      📘
+                    </span>
+                  </div>
+                  <div className="group w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 cursor-pointer" style={{ backgroundColor: "#502274" }}>
+                    <span className="text-xl group-hover:scale-110 transition-transform duration-300" style={{ color: "#E9C0E9" }}>
+                      📸
+                    </span>
+                  </div>
+                  <div className="group w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 cursor-pointer" style={{ backgroundColor: "#502274" }}>
+                    <span className="text-xl group-hover:scale-110 transition-transform duration-300" style={{ color: "#E9C0E9" }}>
+                      🎮
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Company Links */}
+              <div>
+                <h4 className="font-bold text-lg mb-6" style={{ color: "#E9C0E9" }}>
+                  Company
+                </h4>
+                <ul className="space-y-4">
+                  {["About Us", "Careers", "Press", "Blog"].map((item) => (
+                    <li key={item}>
+                      <span className="text-base opacity-80 hover:opacity-100 transition-all duration-300 hover:translate-x-1 inline-block cursor-pointer" style={{ color: "#E9C0E9" }}>
+                        {item}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Community Links */}
+              <div>
+                <h4 className="font-bold text-lg mb-6" style={{ color: "#E9C0E9" }}>
+                  Community
+                </h4>
+                <ul className="space-y-4">
+                  {["Discord", "Twitter", "Instagram", "YouTube"].map((item) => (
+                    <li key={item}>
+                      <span className="text-base opacity-80 hover:opacity-100 transition-all duration-300 hover:translate-x-1 inline-block cursor-pointer" style={{ color: "#E9C0E9" }}>
+                        {item}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Support Links */}
+              <div>
+                <h4 className="font-bold text-lg mb-6" style={{ color: "#E9C0E9" }}>
+                  Support
+                </h4>
+                <ul className="space-y-4">
+                  {["Help Center", "Contact Us", "Privacy Policy", "Terms of Service"].map((item) => (
+                    <li key={item}>
+                      <span className="text-base opacity-80 hover:opacity-100 transition-all duration-300 hover:translate-x-1 inline-block cursor-pointer" style={{ color: "#E9C0E9" }}>
+                        {item}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Bottom Bar */}
+            <div className="border-t pt-8 flex flex-col md:flex-row justify-between items-center gap-6" style={{ borderColor: "#502274" }}>
+              <p className="text-base opacity-60" style={{ color: "#E9C0E9" }}>
+                © 2025 LinkBranch. All rights reserved.
+              </p>
+
+              <div className="flex items-center gap-6">
+                <span className="text-sm opacity-60" style={{ color: "#E9C0E9" }}>
+                  Made with ❤️ for creators
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </footer>
