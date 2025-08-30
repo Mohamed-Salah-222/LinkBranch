@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document } from "mongoose";
 import type { Link as LinkType } from "../../../packages/types/index.js";
-export interface ILink extends LinkType, Document {}
+export interface ILink extends Omit<LinkType, "_id">, Document {}
 
 const linkSchema = new Schema(
   {

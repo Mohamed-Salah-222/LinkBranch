@@ -10,4 +10,6 @@ router.put("/reorder", protect, linkController.reorderLinks);
 
 router.route("/:linkId").put(protect, linkController.updateLink).delete(protect, linkController.deleteLink);
 
+router.patch("/:linkId/click", linkController.trackClick);
+
 export default router;

@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document } from "mongoose";
 import type { User as UserType } from "../../../packages/types/index.js";
-export interface IUser extends UserType, Document {}
+export interface IUser extends Omit<UserType, "_id">, Document {}
 
 const userSchema = new Schema(
   {

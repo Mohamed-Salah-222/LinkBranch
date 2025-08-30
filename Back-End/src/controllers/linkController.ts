@@ -108,3 +108,18 @@ export const reorderLinks: ExpressHandler = async (req, res, next) => {
     next(error);
   }
 };
+//*--------------------------------------------------------------------------------------Count Clicks--------------------------------------------------------------------------------------
+export const trackClick: ExpressHandler = async (req, res, next) => {
+  try {
+    const { linkId } = req.params;
+
+    // Use findByIdAndUpdate with the $inc operator for an efficient atomic update
+    await Link.findByIdAndUpdate(linkId, { $inc: { clicks: 1 } });
+
+    // Send a 204 No Content response, as we don't need to send any data back
+    res.sendStatus(204);
+  } catch (error) {
+    // Pass any errors to the error handler
+    next(error);
+  }
+};
