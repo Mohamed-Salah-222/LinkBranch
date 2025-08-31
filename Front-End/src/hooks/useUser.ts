@@ -47,18 +47,18 @@ interface PublicProfileResponse {
 // Custom hook for fetching a user's public profile data
 export function useGetPublicProfile(username: string | undefined) {
   return useQuery<PublicProfileResponse, Error>({
-    // 1. The query key is now dynamic. It includes the username.
-    // This ensures that data for different users is cached separately.
     queryKey: ["publicProfile", username],
-
-    // 2. The query function fetches the data.
     queryFn: async () => {
-      const response = await apiClient.get(`/users/${username}`);
-      return response.data;
+      try {
+        const response = await apiClient.get(`/users/${username}`);
+        console.log("API Response:", response.data); // Add this for debugging
+        return response.data;
+      } catch (error) {
+        console.error("API Error:", error);
+        throw error;
+      }
     },
-
-    // 3. The 'enabled' option is a best practice. It prevents the
-    // query from running if the username is not yet available.
     enabled: !!username,
+    retry: 1,
   });
 }

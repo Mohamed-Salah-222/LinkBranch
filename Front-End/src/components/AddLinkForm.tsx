@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { useCreateLink } from "../hooks/useLinks";
-import { Plus, Leaf } from "lucide-react";
+import { Plus, Link } from "lucide-react";
 
 const AddLinkForm = () => {
   const [title, setTitle] = useState("");
@@ -23,94 +23,82 @@ const AddLinkForm = () => {
   };
 
   return (
-    <div className="mb-8 p-8 bg-white rounded-2xl shadow-lg border border-stone-200/50">
+    <div className="mb-6 p-6 bg-white rounded-lg shadow-sm border border-stone-200">
       <div className="flex items-center gap-3 mb-6">
-        <div className="p-2 bg-emerald-600 rounded-lg">
-          <Leaf className="w-5 h-5 text-white" />
+        <div className="p-2 bg-stone-500 rounded-lg">
+          <Link className="w-5 h-5 text-white" />
         </div>
-        <h2 className="text-2xl font-bold text-emerald-900">Plant a New Branch</h2>
+        <h2 className="text-lg font-bold text-stone-800">Add New Link</h2>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-4">
         {/* Title Input */}
-        <div className="relative">
+        <div>
+          <label htmlFor="title" className="block text-sm font-bold text-stone-700 mb-2">
+            Link Title
+          </label>
           <input
             id="title"
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full px-4 py-3 pt-6 bg-white/80 border-2 border-stone-200 rounded-xl shadow-sm 
-             focus:outline-none focus:ring-3 focus:ring-emerald-200 focus:border-emerald-400 
+            className="w-full px-4 py-3 bg-white border border-stone-200 rounded-lg 
+             focus:outline-none focus:ring-2 focus:ring-stone-300 focus:border-stone-400 
              text-stone-800 font-medium transition-all duration-200
-             hover:border-stone-300 peer"
-            placeholder=" "
+             hover:border-stone-300"
+            placeholder="Enter link title"
             required
           />
-          <label
-            htmlFor="title"
-            className="absolute left-4 top-3 text-stone-500 text-sm font-semibold tracking-wide
-             transition-all duration-200 pointer-events-none
-             peer-focus:-translate-y-2 peer-focus:scale-75 peer-focus:text-emerald-600
-             peer-[:not(:placeholder-shown)]:-translate-y-2 peer-[:not(:placeholder-shown)]:scale-75"
-          >
-            Link Title
-          </label>
         </div>
 
         {/* URL Input */}
-        <div className="relative">
+        <div>
+          <label htmlFor="url" className="block text-sm font-bold text-stone-700 mb-2">
+            Destination URL
+          </label>
           <input
             id="url"
             type="url"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
-            className="w-full px-4 py-3 pt-6 bg-white/80 border-2 border-stone-200 rounded-xl shadow-sm 
-             focus:outline-none focus:ring-3 focus:ring-emerald-200 focus:border-emerald-400 
+            className="w-full px-4 py-3 bg-white border border-stone-200 rounded-lg 
+             focus:outline-none focus:ring-2 focus:ring-stone-300 focus:border-stone-400 
              text-stone-800 font-medium transition-all duration-200
-             hover:border-stone-300 peer"
-            placeholder=" "
+             hover:border-stone-300"
+            placeholder="https://example.com"
             required
           />
-          <label
-            htmlFor="url"
-            className="absolute left-4 top-3 text-stone-500 text-sm font-semibold tracking-wide
-             transition-all duration-200 pointer-events-none
-             peer-focus:-translate-y-2 peer-focus:scale-75 peer-focus:text-emerald-600
-             peer-[:not(:placeholder-shown)]:-translate-y-2 peer-[:not(:placeholder-shown)]:scale-75"
-          >
-            Destination URL
-          </label>
         </div>
 
-        {/* Submit Button with Loading State */}
+        {/* Submit Button */}
         <button
           type="submit"
           disabled={isPending}
-          className="w-full bg-gradient-to-r from-emerald-600 to-green-600 text-white py-4 px-6 rounded-xl 
-                   font-semibold text-lg shadow-lg hover:shadow-xl 
-                   hover:from-emerald-700 hover:to-green-700 
-                   focus:outline-none focus:ring-4 focus:ring-emerald-200 
-                   disabled:from-stone-400 disabled:to-stone-500 disabled:cursor-not-allowed
-                   transform transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]
+          className="w-full bg-stone-700 text-white py-3 px-6 rounded-lg 
+                   font-bold text-sm shadow-sm
+                   hover:bg-stone-800 
+                   focus:outline-none focus:ring-2 focus:ring-stone-300 
+                   disabled:bg-stone-400 disabled:cursor-not-allowed
+                   transition-all duration-200
                    flex items-center justify-center gap-2"
         >
           {isPending ? (
             <>
-              <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-              Growing your link...
+              <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+              Adding Link...
             </>
           ) : (
             <>
-              <Plus className="w-5 h-5" />
-              Plant This Link
+              <Plus className="w-4 h-4" />
+              Add Link
             </>
           )}
         </button>
 
         {/* Error Message Display */}
         {isError && (
-          <div className="p-4 bg-red-50 border-l-4 border-red-400 rounded-lg">
-            <p className="text-red-700 text-sm font-medium">🍂 Oops! {error.message}</p>
+          <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
+            <p className="text-red-700 text-sm font-medium">Error: {error.message}</p>
           </div>
         )}
       </form>

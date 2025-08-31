@@ -19,7 +19,7 @@ const LinkItem = ({ link }: LinkItemProps) => {
 
   const handleDelete = () => {
     // Add a confirmation before deleting
-    if (window.confirm("Are you sure you want to uproot this link? 🌱")) {
+    if (window.confirm("Are you sure you want to delete this link?")) {
       deleteLink(link._id);
     }
   };
@@ -36,68 +36,53 @@ const LinkItem = ({ link }: LinkItemProps) => {
   };
 
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-md border border-stone-200/50 hover:shadow-lg transition-all duration-300 group">
+    <div className="bg-white p-4 rounded-lg shadow-sm border border-stone-200 hover:bg-stone-50 transition-all duration-200">
       {isEditing ? (
         // --- EDITING VIEW ---
         <div className="space-y-4">
-          <div className="relative">
+          <div>
+            <label className="block text-sm font-bold text-stone-700 mb-2">Title</label>
             <input
               type="text"
               value={editedTitle}
               onChange={(e) => setEditedTitle(e.target.value)}
-              className="w-full px-4 py-3 pt-6 bg-white/80 border-2 border-stone-200 rounded-xl shadow-sm 
-                       focus:outline-none focus:ring-3 focus:ring-emerald-200 focus:border-emerald-400 
+              className="w-full px-4 py-3 bg-white border border-stone-200 rounded-lg 
+                       focus:outline-none focus:ring-2 focus:ring-stone-300 focus:border-stone-400 
                        text-stone-800 font-medium transition-all duration-200
-                       hover:border-stone-300 peer"
-              placeholder=" "
+                       hover:border-stone-300"
+              placeholder="Enter link title"
               required
             />
-            <label
-              className="absolute left-4 top-3 text-stone-500 text-sm font-semibold tracking-wide
-                       transition-all duration-200 pointer-events-none
-                       peer-focus:-translate-y-2 peer-focus:scale-75 peer-focus:text-emerald-600
-                       peer-[:not(:placeholder-shown)]:-translate-y-2 peer-[:not(:placeholder-shown)]:scale-75"
-            >
-              Title
-            </label>
           </div>
 
-          <div className="relative">
+          <div>
+            <label className="block text-sm font-bold text-stone-700 mb-2">URL</label>
             <input
               type="url"
               value={editedUrl}
               onChange={(e) => setEditedUrl(e.target.value)}
-              className="w-full px-4 py-3 pt-6 bg-white/80 border-2 border-stone-200 rounded-xl shadow-sm 
-                       focus:outline-none focus:ring-3 focus:ring-emerald-200 focus:border-emerald-400 
+              className="w-full px-4 py-3 bg-white border border-stone-200 rounded-lg 
+                       focus:outline-none focus:ring-2 focus:ring-stone-300 focus:border-stone-400 
                        text-stone-800 font-medium transition-all duration-200
-                       hover:border-stone-300 peer"
-              placeholder=" "
+                       hover:border-stone-300"
+              placeholder="https://example.com"
               required
             />
-            <label
-              className="absolute left-4 top-3 text-stone-500 text-sm font-semibold tracking-wide
-                       transition-all duration-200 pointer-events-none
-                       peer-focus:-translate-y-2 peer-focus:scale-75 peer-focus:text-emerald-600
-                       peer-[:not(:placeholder-shown)]:-translate-y-2 peer-[:not(:placeholder-shown)]:scale-75"
-            >
-              URL
-            </label>
           </div>
 
-          <div className="flex items-center gap-3 justify-end pt-2">
-            <button onClick={() => setIsEditing(false)} className="p-3 text-stone-500 hover:text-stone-700 hover:bg-stone-100 rounded-xl transition-all duration-200" aria-label="Cancel edit">
-              <X size={20} />
+          <div className="flex items-center gap-2 justify-end pt-2">
+            <button onClick={() => setIsEditing(false)} className="p-2 text-stone-500 hover:text-stone-700 hover:bg-stone-100 rounded-lg transition-all duration-200" aria-label="Cancel edit">
+              <X size={18} />
             </button>
             <button
               onClick={handleUpdate}
               disabled={isUpdating}
-              className="p-3 text-white bg-gradient-to-r from-emerald-600 to-green-600 rounded-xl 
-                       hover:from-emerald-700 hover:to-green-700 disabled:from-stone-400 disabled:to-stone-500
-                       transform transition-all duration-200 hover:scale-105 active:scale-95
-                       shadow-lg hover:shadow-xl"
+              className="p-2 text-white bg-stone-700 rounded-lg 
+                       hover:bg-stone-800 disabled:bg-stone-400
+                       transition-all duration-200 flex items-center justify-center"
               aria-label="Save changes"
             >
-              {isUpdating ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div> : <Save size={20} />}
+              {isUpdating ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div> : <Save size={18} />}
             </button>
           </div>
         </div>
@@ -106,27 +91,27 @@ const LinkItem = ({ link }: LinkItemProps) => {
         <div className="flex items-center justify-between">
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-1">
-              <p className="font-bold text-lg text-stone-800 truncate">{link.title}</p>
-              <ExternalLink className="w-4 h-4 text-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+              <p className="font-bold text-sm text-stone-800 truncate">{link.title}</p>
+              <ExternalLink className="w-4 h-4 text-stone-400" />
             </div>
             <p className="text-stone-500 text-sm truncate">{link.url}</p>
           </div>
-          <div className="flex items-center gap-2 ml-4">
+          <div className="flex items-center gap-1 ml-4">
             <button
               onClick={() => setIsEditing(true)}
-              className="p-3 text-stone-500 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl 
-                       transition-all duration-200 transform hover:scale-105"
+              className="p-2 text-stone-500 hover:text-stone-700 hover:bg-stone-100 rounded-lg 
+                       transition-all duration-200"
               aria-label="Edit link"
             >
-              <Pencil size={18} />
+              <Pencil size={16} />
             </button>
             <button
               onClick={handleDelete}
-              className="p-3 text-stone-500 hover:text-red-600 hover:bg-red-50 rounded-xl 
-                       transition-all duration-200 transform hover:scale-105"
+              className="p-2 text-stone-500 hover:text-red-600 hover:bg-red-50 rounded-lg 
+                       transition-all duration-200"
               aria-label="Delete link"
             >
-              <Trash2 size={18} />
+              <Trash2 size={16} />
             </button>
           </div>
         </div>

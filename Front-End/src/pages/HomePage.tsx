@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { ChevronDown } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
@@ -133,18 +134,108 @@ const HomePage = () => {
               <img src="/logo.jpg" alt="LinkBranch Logo" className="ml-2 w-6 h-6 md:w-8 md:h-8 rounded-full object-cover" />
             </div>
             <div className="flex gap-6">
-              <button className="text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md transition-colors">Products</button>
-              <button className="text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md transition-colors">Templates</button>
-              <button className="text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md transition-colors">Marketplace</button>
-              <button className="text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md transition-colors">Learn</button>
+              {/* Products Dropdown */}
+              <div className="relative group">
+                <button className="text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md transition-colors flex items-center gap-1">
+                  Products <ChevronDown className="w-4 h-4 transition-transform group-hover:rotate-180" />
+                </button>
+                <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  <div className="py-2">
+                    <a href="#" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Link in Bio
+                    </a>
+                    <a href="#" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      QR Codes
+                    </a>
+                    <a href="#" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Short Links
+                    </a>
+                    <a href="#" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Analytics
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Templates Dropdown */}
+              <div className="relative group">
+                <button className="text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md transition-colors flex items-center gap-1">
+                  Templates <ChevronDown className="w-4 h-4 transition-transform group-hover:rotate-180" />
+                </button>
+                <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  <div className="py-2">
+                    <a href="#" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Creator
+                    </a>
+                    <a href="#" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Business
+                    </a>
+                    <a href="#" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Influencer
+                    </a>
+                    <a href="#" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Artist
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Marketplace Dropdown */}
+              <div className="relative group">
+                <button className="text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md transition-colors flex items-center gap-1">
+                  Marketplace <ChevronDown className="w-4 h-4 transition-transform group-hover:rotate-180" />
+                </button>
+                <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  <div className="py-2">
+                    <a href="#" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Themes
+                    </a>
+                    <a href="#" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Widgets
+                    </a>
+                    <a href="#" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Integrations
+                    </a>
+                    <a href="#" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Apps
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Learn Dropdown */}
+              <div className="relative group">
+                <button className="text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md transition-colors flex items-center gap-1">
+                  Learn <ChevronDown className="w-4 h-4 transition-transform group-hover:rotate-180" />
+                </button>
+                <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  <div className="py-2">
+                    <a href="#" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Blog
+                    </a>
+                    <a href="#" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Tutorials
+                    </a>
+                    <a href="#" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Best Practices
+                    </a>
+                    <a href="#" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      Case Studies
+                    </a>
+                  </div>
+                </div>
+              </div>
+
               <button className="text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md transition-colors">Pricing</button>
             </div>
           </div>
           <div className="flex gap-6 items-center">
-            <button className="text-gray-600 hover:text-black bg-gray-100 px-8 py-6 rounded">Log in</button>
-            <button className="text-white px-8 py-6 rounded-full transition-colors hover:opacity-90" style={{ backgroundColor: "#1E2330" }}>
+            <Link to="/login" className="text-gray-600 hover:text-black bg-gray-100 px-8 py-6 rounded">
+              Log in
+            </Link>
+            <Link to="/register" className="text-white px-8 py-6 rounded-full transition-colors hover:opacity-90" style={{ backgroundColor: "#1E2330" }}>
               Sign up for free
-            </button>
+            </Link>
           </div>
         </div>
       </nav>
@@ -166,9 +257,9 @@ const HomePage = () => {
                 <span className="text-gray-500">LinkBranch/</span>
                 <input type="text" className="bg-transparent text-black outline-none flex-1 ml-1" />
               </div>
-              <button className="text-black px-6 py-2 rounded-full hover:opacity-90 transition-colors" style={{ backgroundColor: "#E9C0E9" }}>
+              <Link to="/login" className="text-black px-6 py-2 rounded-full hover:opacity-90 transition-colors" style={{ backgroundColor: "#E9C0E9" }}>
                 Claim your linkBranch
-              </button>
+              </Link>
             </div>
           </div>
           <div>
@@ -203,9 +294,9 @@ const HomePage = () => {
                 your linkBranch in minutes
               </h2>
               <p className="text-black text-lg leading-relaxed mb-8">Connect your TikTok, Instagram, Twitter website, store, videos, music, podcast, events and more. It all comes together in a link in bio landing page designed to convert.</p>
-              <button className="px-8 py-4 rounded-full font-semibold text-white hover:opacity-90 transition-opacity" style={{ backgroundColor: "#502274" }}>
+              <Link to="/login" className="px-8 py-4 rounded-full font-semibold text-white hover:opacity-90 transition-opacity" style={{ backgroundColor: "#502274" }}>
                 Get Started for Free
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -232,9 +323,9 @@ const HomePage = () => {
               </h2>
 
               <p className="text-black text-lg leading-relaxed mb-8 max-w-xl">Track your engagement over time, monitor revenue and learn what's converting your audience. Make informed updates on the fly to keep them coming back.</p>
-              <button className="px-8 py-4 rounded-full font-semibold text-black hover:opacity-90 transition-opacity" style={{ backgroundColor: "#E9C0E9" }}>
+              <Link to="/login" className="px-8 py-4 rounded-full font-semibold text-black hover:opacity-90 transition-opacity" style={{ backgroundColor: "#E9C0E9" }}>
                 Get started for free
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -344,7 +435,9 @@ const HomePage = () => {
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
               <button className="group relative px-12 py-4 rounded-2xl font-bold text-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl cursor-pointer" style={{ backgroundColor: "#E9C0E9", color: "#502274" }}>
-                <span className="relative z-10">Get Started Free</span>
+                <Link to="/login" className="relative z-10">
+                  Get Started For Free
+                </Link>
                 <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-300" style={{ backgroundColor: "#ffffff" }}></div>
               </button>
             </div>
